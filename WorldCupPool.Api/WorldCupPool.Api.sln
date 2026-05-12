@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCupPool.Api", "WorldCupPool.Api.csproj", "{7DAEA64C-26C0-CEA7-A2A2-9C146CDFC9DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DAEA64C-26C0-CEA7-A2A2-9C146CDFC9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DAEA64C-26C0-CEA7-A2A2-9C146CDFC9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DAEA64C-26C0-CEA7-A2A2-9C146CDFC9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DAEA64C-26C0-CEA7-A2A2-9C146CDFC9DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14B8FC3B-BB2E-4C56-89DA-5ED78B8D24F4}
+	EndGlobalSection
+EndGlobal
