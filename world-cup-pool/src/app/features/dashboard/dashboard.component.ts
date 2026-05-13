@@ -93,4 +93,22 @@ export class DashboardComponent implements OnInit {
       minute: '2-digit'
     });
   }
+
+  getFlagEmoji(countryName: string): string {
+    if (!countryName) return '🏳️';
+
+    const flags: { [key: string]: string } = {
+      'argentina': '🇦🇷',
+      'argenti': '🇦🇷', // Manejo del texto cortado
+      'mexico': '🇲🇽',
+      'poland': '🇵🇱',
+      'saudi arabia': '🇸🇦',
+      'france': '🇫🇷',
+      'australia': '🇦🇺',
+      'denmark': '🇩🇰',
+      'tunisia': '🇹🇳'
+    };
+
+    return flags[countryName.toLowerCase().trim()] || '🏳️';
+  }
 }

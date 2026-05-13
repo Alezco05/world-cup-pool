@@ -18,20 +18,29 @@
         <h2>Grupo A</h2>
         <div class="matches-grid">
           @for (match of getMatchesByGroup('Grupo A'); track match.id) {
-            <div class="match-card">
+            <div class="match-card" [class.is-closed]="!isMatchOpen(match)">
               <div class="match-header">
-                <div class="teams">
-                  <div class="team">
-                    <img [src]="match.homeFlag || 'assets/flags/default.png'" [alt]="match.homeTeam" class="flag">
-                    <span class="team-name">{{ match.homeTeam }}</span>
-                  </div>
-                  <span class="vs">VS</span>
-                  <div class="team">
-                    <img [src]="match.awayFlag || 'assets/flags/default.png'" [alt]="match.awayTeam" class="flag">
-                    <span class="team-name">{{ match.awayTeam }}</span>
-                  </div>
-                </div>
                 <div class="match-date">{{ formatDate(match.matchDate) }}</div>
+              </div>
+
+              <div class="teams-container">
+                <!-- Equipo Local -->
+                <div class="team">
+                  <div class="flag-wrapper">
+                    <span class="flag-emoji">{{ getFlagEmoji(match.homeTeam) }}</span>
+                  </div>
+                  <span class="team-name">{{ match.homeTeam }}</span>
+                </div>
+                
+                <span class="vs">VS</span>
+                
+                <!-- Equipo Visitante -->
+                <div class="team">
+                  <div class="flag-wrapper">
+                    <span class="flag-emoji">{{ getFlagEmoji(match.awayTeam) }}</span>
+                  </div>
+                  <span class="team-name">{{ match.awayTeam }}</span>
+                </div>
               </div>
 
               @if (isMatchOpen(match)) {
@@ -45,7 +54,7 @@
                       min="0" 
                       class="score-input"
                     >
-                    <span class="separator">-</span>
+                    <span class="separator">:</span>
                     <input 
                       type="number" 
                       [value]="predictions().get(match.id)?.away || 0" 
@@ -59,9 +68,9 @@
                 </div>
               } @else {
                 <div class="match-closed">
-                  <span class="closed-badge">Pronósticos cerrados</span>
+                  <span class="closed-badge">Pronóstico cerrado</span>
                   <div class="final-score">
-                    Resultado: <strong>{{ match.homeScore }} - {{ match.awayScore }}</strong>
+                    Oficial: <span>{{ match.homeScore !== null && match.homeScore !== undefined ? match.homeScore : '-' }} - {{ match.awayScore !== null && match.awayScore !== undefined ? match.awayScore : '-' }}</span>
                   </div>
                 </div>
               }
@@ -75,20 +84,29 @@
         <h2>Grupo B</h2>
         <div class="matches-grid">
           @for (match of getMatchesByGroup('Grupo B'); track match.id) {
-            <div class="match-card">
+            <div class="match-card" [class.is-closed]="!isMatchOpen(match)">
               <div class="match-header">
-                <div class="teams">
-                  <div class="team">
-                    <img [src]="match.homeFlag || 'assets/flags/default.png'" [alt]="match.homeTeam" class="flag">
-                    <span class="team-name">{{ match.homeTeam }}</span>
-                  </div>
-                  <span class="vs">VS</span>
-                  <div class="team">
-                    <img [src]="match.awayFlag || 'assets/flags/default.png'" [alt]="match.awayTeam" class="flag">
-                    <span class="team-name">{{ match.awayTeam }}</span>
-                  </div>
-                </div>
                 <div class="match-date">{{ formatDate(match.matchDate) }}</div>
+              </div>
+
+              <div class="teams-container">
+                <!-- Equipo Local -->
+                <div class="team">
+                  <div class="flag-wrapper">
+                    <span class="flag-emoji">{{ getFlagEmoji(match.homeTeam) }}</span>
+                  </div>
+                  <span class="team-name">{{ match.homeTeam }}</span>
+                </div>
+                
+                <span class="vs">VS</span>
+                
+                <!-- Equipo Visitante -->
+                <div class="team">
+                  <div class="flag-wrapper">
+                    <span class="flag-emoji">{{ getFlagEmoji(match.awayTeam) }}</span>
+                  </div>
+                  <span class="team-name">{{ match.awayTeam }}</span>
+                </div>
               </div>
 
               @if (isMatchOpen(match)) {
@@ -102,7 +120,7 @@
                       min="0" 
                       class="score-input"
                     >
-                    <span class="separator">-</span>
+                    <span class="separator">:</span>
                     <input 
                       type="number" 
                       [value]="predictions().get(match.id)?.away || 0" 
@@ -116,9 +134,9 @@
                 </div>
               } @else {
                 <div class="match-closed">
-                  <span class="closed-badge">Pronósticos cerrados</span>
+                  <span class="closed-badge">Pronóstico cerrado</span>
                   <div class="final-score">
-                    Resultado: <strong>{{ match.homeScore }} - {{ match.awayScore }}</strong>
+                    Oficial: <span>{{ match.homeScore !== null && match.homeScore !== undefined ? match.homeScore : '-' }} - {{ match.awayScore !== null && match.awayScore !== undefined ? match.awayScore : '-' }}</span>
                   </div>
                 </div>
               }

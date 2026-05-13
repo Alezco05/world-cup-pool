@@ -7,13 +7,13 @@
       <a routerLink="/leaderboard" routerLinkActive="active">Ranking</a>
       
       @if (authService.isAdmin()) {
-        <a routerLink="/admin" routerLinkActive="active" class="admin-link">Panel Admin</a>
+        <a routerLink="/admin" routerLinkActive="active" class="admin-link">Admin</a>
       }
       
-      <button (click)="onLogout()" class="btn-logout">Cerrar Sesión</button>
+      <button (click)="onLogout()" class="btn-logout">Salir</button>
     } @else {
-      <a routerLink="/auth/login" routerLinkActive="active">Iniciar Sesión</a>
-      <a routerLink="/auth/register" routerLinkActive="active">Registrarse</a>
+      <a routerLink="/auth/login" routerLinkActive="active">Login</a>
+      <a routerLink="/auth/register" routerLinkActive="active">Registro</a>
     }
   </div>
 </nav>

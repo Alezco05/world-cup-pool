@@ -9,28 +9,32 @@
     <div class="loading">Cargando ranking...</div>
   } @else {
     <div class="leaderboard-wrapper">
-      <table class="leaderboard-table">
-        <thead>
-          <tr>
-            <th class="position">#</th>
-            <th class="username">Jugador</th>
-            <th class="points">Puntos</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (entry of leaderboard(); let index = $index; track entry.userId) {
-            <tr 
-              class="leaderboard-row" 
-              [class.selected]="selectedUserId() === entry.userId"
-              (click)="selectUser(entry)"
-            >
-              <td class="position">{{ index + 1 }}</td>
-              <td class="username">{{ entry.username }}</td>
-              <td class="points">{{ entry.totalPoints }}</td>
+      
+      <!-- Contenedor estructural para la tabla -->
+      <div class="leaderboard-table-container">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th class="position">#</th>
+              <th class="username">Jugador</th>
+              <th class="points">Puntos</th>
             </tr>
-          }
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            @for (entry of leaderboard(); let index = $index; track entry.userId) {
+              <tr 
+                class="leaderboard-row" 
+                [class.selected]="selectedUserId() === entry.userId"
+                (click)="selectUser(entry)"
+              >
+                <td class="position">{{ index + 1 }}</td>
+                <td class="username">{{ entry.username }}</td>
+                <td class="points">{{ entry.totalPoints }} pts</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
 
       <!-- Sección de historial del usuario -->
       @if (selectedUserHistory() !== null) {
@@ -66,7 +70,7 @@
                     </td>
                     <td>{{ history.predictedHomeScore }} - {{ history.predictedAwayScore }}</td>
                     <td>{{ getResultDisplay(history) }}</td>
-                    <td class="points-earned">{{ history.pointsEarned }}</td>
+                    <td class="points-earned">+{{ history.pointsEarned }}</td>
                     <td>
                       <span [class]="history.status === 'Finished' ? 'status-finished' : 'status-scheduled'">
                         {{ history.status === 'Finished' ? 'Finalizado' : 'Pendiente' }}

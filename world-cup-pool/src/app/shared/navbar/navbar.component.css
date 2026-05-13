@@ -1,16 +1,93 @@
+/* ==========================================
+   CSS DIRECTO Y SIMPLIFICADO PARA NAVBAR
+   ========================================== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1a1a1a;
-  padding: 15px 30px;
-  color: white;
-  font-family: sans-serif;
+  flex-wrap: wrap; /* Permite que los elementos bajen de forma limpia en móviles */
+  background-color: var(--bg-dark);
+  padding: 12px 16px;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.08);
+  position: relative;
+  gap: 12px;
 }
-.nav-brand { font-weight: bold; font-size: 18px; }
-.nav-links { display: flex; align-items: center; gap: 20px; }
-.nav-links a { color: #ccc; text-decoration: none; font-size: 14px; padding: 5px 10px; transition: color 0.2s; }
-.nav-links a.active { color: #fff; font-weight: bold; border-bottom: 2px solid #007bff; }
-.admin-link { color: #ffc107 !important; }
-.btn-logout { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-.btn-logout:hover { background: #bd2130; }
+
+.nav-brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-light);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Evita que los botones se salgan o se amontonen */
+  gap: 8px;
+}
+
+.nav-links a {
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text-light);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-links a.active {
+  color: var(--text-light);
+  background-color: var(--bg-dark-hover);
+}
+
+.nav-links .admin-link {
+  color: #fcd34d !important;
+}
+
+.nav-links .admin-link:hover {
+  background-color: rgba(252, 211, 77, 0.1);
+}
+
+.btn-logout {
+  background-color: #ef4444;
+  color: var(--text-light);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-logout:hover {
+  background-color: #b91c1c;
+}
+
+/* ==========================================
+   MEDIA QUERY: AJUSTE EXCLUSIVO PARA MÓVILES
+   ========================================== */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column; /* Alinea el título arriba y los enlaces abajo */
+    align-items: center;
+    text-align: center;
+  }
+  
+  .nav-links {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-links a, .btn-logout {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
