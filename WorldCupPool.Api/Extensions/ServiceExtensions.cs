@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using WorldCupPool.Api.Application.Services;
+using WorldCupPool.Api.Application.Services.Interfaces;
 using WorldCupPool.Api.Infrastructure;
 
 namespace WorldCupPool.Api.Extensions
@@ -87,6 +88,7 @@ namespace WorldCupPool.Api.Extensions
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPredictionService, PredictionService>();
+            services.AddScoped<IMatchService, MatchService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(configuration.GetConnectionString("DefaultConnection")

@@ -1,0 +1,84 @@
+<div class="leaderboard-container">
+  <h1>Tabla de Posiciones</h1>
+
+  @if (errorMessage()) {
+    <div class="error-message">{{ errorMessage() }}</div>
+  }
+
+  @if (isLoading()) {
+    <div class="loading">Cargando ranking...</div>
+  } @else {
+    <div class="leaderboard-wrapper">
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th class="position">#</th>
+            <th class="username">Jugador</th>
+            <th class="points">Puntos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of leaderboard(); let index = $index; track entry.userId) {
+            <tr 
+              class="leaderboard-row" 
+              [class.selected]="selectedUserId() === entry.userId"
+              (click)="selectUser(entry)"
+            >
+              <td class="position">{{ index + 1 }}</td>
+              <td class="username">{{ entry.username }}</td>
+              <td class="points">{{ entry.totalPoints }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <!-- Sección de historial del usuario -->
+      @if (selectedUserHistory() !== null) {
+        <div class="history-section">
+          <div class="history-header">
+            <h2>Historial de Predicciones</h2>
+            <button (click)="closeHistory()" class="close-btn">✕</button>
+          </div>
+
+          @if (isLoadingHistory()) {
+            <div class="loading">Cargando historial...</div>
+          } @else if (selectedUserHistory()!.length === 0) {
+            <div class="no-history">
+              No hay predicciones registradas.
+            </div>
+          } @else {
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Encuentro</th>
+                  <th>Predicción</th>
+                  <th>Resultado</th>
+                  <th>Puntos</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (history of selectedUserHistory(); track history.predictionId) {
+                  <tr>
+                    <td>
+                      <strong>{{ history.homeTeam }}</strong> vs <strong>{{ history.awayTeam }}</strong><br>
+                      <small>{{ formatDate(history.matchDate) }}</small>
+                    </td>
+                    <td>{{ history.predictedHomeScore }} - {{ history.predictedAwayScore }}</td>
+                    <td>{{ getResultDisplay(history) }}</td>
+                    <td class="points-earned">{{ history.pointsEarned }}</td>
+                    <td>
+                      <span [class]="history.status === 'Finished' ? 'status-finished' : 'status-scheduled'">
+                        {{ history.status === 'Finished' ? 'Finalizado' : 'Pendiente' }}
+                      </span>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,138 @@
+<div class="admin-container">
+  <h1>Panel de Administrador - Gestión de Partidos</h1>
+
+  <div *ngIf="successMessage()" class="success-message">{{ successMessage() }}</div>
+  <div *ngIf="errorMessage()" class="error-message">{{ errorMessage() }}</div>
+
+  <div *ngIf="isLoading()" class="loading">Cargando partidos...</div>
+
+  <div *ngIf="!isLoading()" class="admin-wrapper">
+    <!-- Grupo A -->
+    <div class="group-section">
+      <h2>Grupo A</h2>
+      <div class="matches-list">
+        @for (match of getMatchesByGroup('Grupo A'); track match.id) {
+          <div class="match-card">
+            <div class="match-info">
+              <div class="teams">
+                <span class="team-name">{{ match.homeTeam }}</span>
+                <span class="vs">vs</span>
+                <span class="team-name">{{ match.awayTeam }}</span>
+              </div>
+              <div class="match-date">
+                {{ formatDate(match.matchDate) }}
+              </div>
+            </div>
+
+            <div class="match-status" [class]="match.status === 'Finished' ? 'finished' : 'scheduled'">
+              {{ match.status === 'Finished' ? 'Finalizado' : 'Programado' }}
+            </div>
+
+            @if (editingMatchId() === match.id) {
+              <div class="edit-form">
+                <input 
+                  type="number" 
+                  [value]="editScores().get(match.id)?.home || 0"
+                  (input)="updateScore(match.id, 'home', $any($event.target).value)"
+                  min="0"
+                  class="score-input"
+                >
+                <span>-</span>
+                <input 
+                  type="number" 
+                  [value]="editScores().get(match.id)?.away || 0"
+                  (input)="updateScore(match.id, 'away', $any($event.target).value)"
+                  min="0"
+                  class="score-input"
+                >
+                <button 
+                  (click)="saveScore(match.id)" 
+                  [disabled]="isSaving().get(match.id)"
+                  class="btn-save"
+                >
+                  {{ isSaving().get(match.id) ? 'Guardando...' : 'Guardar' }}
+                </button>
+                <button (click)="cancelEditing()" class="btn-cancel">Cancelar</button>
+              </div>
+            } @else {
+              <div class="score-display">
+                <span class="score">{{ getScoreDisplay(match) }}</span>
+                <button 
+                  (click)="startEditing(match.id)"
+                  [disabled]="match.status === 'Finished'"
+                  class="btn-edit"
+                >
+                  Editar
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Grupo B -->
+    <div class="group-section">
+      <h2>Grupo B</h2>
+      <div class="matches-list">
+        @for (match of getMatchesByGroup('Grupo B'); track match.id) {
+          <div class="match-card">
+            <div class="match-info">
+              <div class="teams">
+                <span class="team-name">{{ match.homeTeam }}</span>
+                <span class="vs">vs</span>
+                <span class="team-name">{{ match.awayTeam }}</span>
+              </div>
+              <div class="match-date">
+                {{ formatDate(match.matchDate) }}
+              </div>
+            </div>
+
+            <div class="match-status" [class]="match.status === 'Finished' ? 'finished' : 'scheduled'">
+              {{ match.status === 'Finished' ? 'Finalizado' : 'Programado' }}
+            </div>
+
+            @if (editingMatchId() === match.id) {
+              <div class="edit-form">
+                <input 
+                  type="number" 
+                  [value]="editScores().get(match.id)?.home || 0"
+                  (input)="updateScore(match.id, 'home', $any($event.target).value)"
+                  min="0"
+                  class="score-input"
+                >
+                <span>-</span>
+                <input 
+                  type="number" 
+                  [value]="editScores().get(match.id)?.away || 0"
+                  (input)="updateScore(match.id, 'away', $any($event.target).value)"
+                  min="0"
+                  class="score-input"
+                >
+                <button 
+                  (click)="saveScore(match.id)" 
+                  [disabled]="isSaving().get(match.id)"
+                  class="btn-save"
+                >
+                  {{ isSaving().get(match.id) ? 'Guardando...' : 'Guardar' }}
+                </button>
+                <button (click)="cancelEditing()" class="btn-cancel">Cancelar</button>
+              </div>
+            } @else {
+              <div class="score-display">
+                <span class="score">{{ getScoreDisplay(match) }}</span>
+                <button 
+                  (click)="startEditing(match.id)"
+                  [disabled]="match.status === 'Finished'"
+                  class="btn-edit"
+                >
+                  Editar
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

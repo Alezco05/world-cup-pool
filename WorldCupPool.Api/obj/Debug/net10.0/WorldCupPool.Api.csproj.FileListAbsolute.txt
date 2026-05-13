@@ -314,3 +314,4 @@ c:\Users\Jhon\Documents\Prueba bizagi\WorldCupPool.Api\obj\buildtemp\NSwag.Core.
 c:\Users\Jhon\Documents\Prueba bizagi\WorldCupPool.Api\obj\buildtemp\NSwag.Generation.dll
 c:\Users\Jhon\Documents\Prueba bizagi\WorldCupPool.Api\obj\buildtemp\NSwag.Generation.AspNetCore.dll
 c:\Users\Jhon\Documents\Prueba bizagi\WorldCupPool.Api\obj\buildtemp\YamlDotNet.dll
+C:\Users\Jhon\Documents\Prueba bizagi\WorldCupPool.Api\obj\Debug\net10.0\WorldCupPool.Api.sourcelink.json

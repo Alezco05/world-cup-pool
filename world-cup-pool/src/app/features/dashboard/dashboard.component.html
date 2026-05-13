@@ -1,0 +1,132 @@
+<div class="dashboard-container">
+  <h1>Fixture de Partidos - Copa Mundial</h1>
+
+  @if (successMessage()) {
+    <div class="success-message">{{ successMessage() }}</div>
+  }
+  @if (errorMessage()) {
+    <div class="error-message">{{ errorMessage() }}</div>
+  }
+
+  @if (isLoading()) {
+    <div class="loading">Cargando partidos...</div>
+  } @else {
+    <div class="dashboard-wrapper">
+      
+      <!-- Grupo A -->
+      <div class="group-section">
+        <h2>Grupo A</h2>
+        <div class="matches-grid">
+          @for (match of getMatchesByGroup('Grupo A'); track match.id) {
+            <div class="match-card">
+              <div class="match-header">
+                <div class="teams">
+                  <div class="team">
+                    <img [src]="match.homeFlag || 'assets/flags/default.png'" [alt]="match.homeTeam" class="flag">
+                    <span class="team-name">{{ match.homeTeam }}</span>
+                  </div>
+                  <span class="vs">VS</span>
+                  <div class="team">
+                    <img [src]="match.awayFlag || 'assets/flags/default.png'" [alt]="match.awayTeam" class="flag">
+                    <span class="team-name">{{ match.awayTeam }}</span>
+                  </div>
+                </div>
+                <div class="match-date">{{ formatDate(match.matchDate) }}</div>
+              </div>
+
+              @if (isMatchOpen(match)) {
+                <div class="prediction-form">
+                  <div class="score-inputs">
+                    <input 
+                      type="number" 
+                      [value]="predictions().get(match.id)?.home || 0" 
+                      (input)="updatePrediction(match.id, 'home', $any($event.target).value)" 
+                      placeholder="0" 
+                      min="0" 
+                      class="score-input"
+                    >
+                    <span class="separator">-</span>
+                    <input 
+                      type="number" 
+                      [value]="predictions().get(match.id)?.away || 0" 
+                      (input)="updatePrediction(match.id, 'away', $any($event.target).value)" 
+                      placeholder="0" 
+                      min="0" 
+                      class="score-input"
+                    >
+                  </div>
+                  <button (click)="savePrediction(match.id)" class="save-btn">Guardar Pronóstico</button>
+                </div>
+              } @else {
+                <div class="match-closed">
+                  <span class="closed-badge">Pronósticos cerrados</span>
+                  <div class="final-score">
+                    Resultado: <strong>{{ match.homeScore }} - {{ match.awayScore }}</strong>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Grupo B -->
+      <div class="group-section">
+        <h2>Grupo B</h2>
+        <div class="matches-grid">
+          @for (match of getMatchesByGroup('Grupo B'); track match.id) {
+            <div class="match-card">
+              <div class="match-header">
+                <div class="teams">
+                  <div class="team">
+                    <img [src]="match.homeFlag || 'assets/flags/default.png'" [alt]="match.homeTeam" class="flag">
+                    <span class="team-name">{{ match.homeTeam }}</span>
+                  </div>
+                  <span class="vs">VS</span>
+                  <div class="team">
+                    <img [src]="match.awayFlag || 'assets/flags/default.png'" [alt]="match.awayTeam" class="flag">
+                    <span class="team-name">{{ match.awayTeam }}</span>
+                  </div>
+                </div>
+                <div class="match-date">{{ formatDate(match.matchDate) }}</div>
+              </div>
+
+              @if (isMatchOpen(match)) {
+                <div class="prediction-form">
+                  <div class="score-inputs">
+                    <input 
+                      type="number" 
+                      [value]="predictions().get(match.id)?.home || 0" 
+                      (input)="updatePrediction(match.id, 'home', $any($event.target).value)" 
+                      placeholder="0" 
+                      min="0" 
+                      class="score-input"
+                    >
+                    <span class="separator">-</span>
+                    <input 
+                      type="number" 
+                      [value]="predictions().get(match.id)?.away || 0" 
+                      (input)="updatePrediction(match.id, 'away', $any($event.target).value)" 
+                      placeholder="0" 
+                      min="0" 
+                      class="score-input"
+                    >
+                  </div>
+                  <button (click)="savePrediction(match.id)" class="save-btn">Guardar Pronóstico</button>
+                </div>
+              } @else {
+                <div class="match-closed">
+                  <span class="closed-badge">Pronósticos cerrados</span>
+                  <div class="final-score">
+                    Resultado: <strong>{{ match.homeScore }} - {{ match.awayScore }}</strong>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+  }
+</div>

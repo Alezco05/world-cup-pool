@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WorldCupPool.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee5cd18d5a8768cb8605c6f8018e9b3a2796f3d4")]
 [assembly: System.Reflection.AssemblyProductAttribute("WorldCupPool.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WorldCupPool.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
