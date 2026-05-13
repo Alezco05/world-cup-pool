@@ -49,5 +49,27 @@ namespace WorldCupPool.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Abre o reabre de forma forzada cualquier partido en cualquier fecha (Pasada o Futura).
+        /// Borra marcadores oficiales anteriores y limpia los puntos calculados de los usuarios.
+        /// </summary>
+        [HttpPost("matches/{id}/toggle-open")]
+        public async Task<IActionResult> ForceOpenMatch(int id)
+        {
+            try
+            {
+                var result = await _adminService.ForceOpenMatchAsync(id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

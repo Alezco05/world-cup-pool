@@ -276,3 +276,52 @@ h1::after {
   color: #0f172a;
   margin-left: 4px;
 }
+
+
+/* ==========================================================================
+   ALERTAS FLOTANTES (TOASTS) - FEEDBACK INSTANTÁNEO SIN SCROLL
+   ========================================================================== */
+
+.success-message, .error-message {
+  position: fixed;
+  bottom: 24px;                 /* Lo posiciona abajo de la pantalla de forma fija */
+  left: 50%;
+  transform: translateX(-50%);  /* Centrado horizontal perfecto en cualquier dispositivo */
+  z-index: 9999;                /* Siempre por encima de las tarjetas y el navbar */
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 280px;
+  max-width: 90%;               /* Seguro para pantallas móviles de 360px */
+  animation: slideUpFade 0.3s ease-out; /* Efecto sutil de entrada hacia arriba */
+  box-sizing: border-box;
+}
+
+.success-message {
+  background-color: #10b981;    /* Esmeralda sólido para contraste flotante */
+  color: #ffffff;
+  border: 1px solid #059669;
+}
+
+.error-message {
+  background-color: #ef4444;    /* Rojo sólido */
+  color: #ffffff;
+  border: 1px solid #dc2626;
+}
+
+/* Efecto de animación para que aparezca desde abajo de forma suave */
+@keyframes slideUpFade {
+  from {
+    bottom: 0px;
+    opacity: 0;
+  }
+  to {
+    bottom: 24px;
+    opacity: 1;
+  }
+}

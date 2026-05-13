@@ -16,11 +16,12 @@ export class AdminComponent implements OnInit {
 
   matches = signal<Match[]>([]);
   isLoading = signal<boolean>(true);
-  successMessage = signal<string>('');
-  errorMessage = signal<string>('');
+  successMessage = signal<string | null>(null);
+  errorMessage = signal<string | null>(null);
   editingMatchId = signal<number | null>(null);
   editScores = signal<Map<number, { home: number; away: number }>>(new Map());
   isSaving = signal<Map<number, boolean>>(new Map());
+
 
   ngOnInit() {
     this.loadMatches();
@@ -121,4 +122,34 @@ export class AdminComponent implements OnInit {
     }
     return `${match.homeScore} - ${match.awayScore}`;
   }
+
+
+  onForceOpen(matchId: number): void {
+    this.successMessage.set(null);
+    this.errorMessage.set(null);
+
+    this.matchService.toggleForceOpenMatch(matchId).subscribe({
+      next: (response) => {
+        // Recibimos directamente 'Live' o 'Scheduled' desde el backend
+        const nuevoEstado = response.status;
+
+        this.matches.update(prevMatches =>
+          prevMatches.map(m => m.id === matchId
+            ? {
+              ...m,
+              status: nuevoEstado,
+              homeScore: nuevoEstado === 'Live' ? 0 : null,
+              awayScore: nuevoEstado === 'Live' ? 0 : null
+            }
+            : m
+          )
+        );
+
+        this.successMessage.set(nuevoEstado === 'Live' ? 'El partido ahora está EN CURSO.' : 'Partido reiniciado.');
+      },
+      error: () => this.errorMessage.set('Error al cambiar el estado en el servidor.')
+    });
+  }
+
+
 }

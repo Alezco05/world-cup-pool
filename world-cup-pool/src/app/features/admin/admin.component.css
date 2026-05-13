@@ -260,3 +260,60 @@ h1::after {
     justify-content: flex-end;
   }
 }
+
+/* Contenedor para alinear los botones de acción en fila */
+.admin-buttons-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .admin-buttons-row {
+    justify-content: flex-end;
+  }
+}
+
+/* ==========================================================================
+   ESTILOS DE LOS BOTONES DE SIMULACIÓN (PRUEBAS EN VIVO)
+   ========================================================================== */
+
+/* Botón 🔄 Reiniciar (Para partidos Finalizados) */
+.btn-reopen {
+  background-color: #6366f1; /* Morado / Índigo Vibrante */
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-reopen:hover {
+  background-color: #4f46e5; /* Índigo más oscuro al pasar el mouse */
+}
+
+/* Botón ⏱️ Iniciar (Para partidos Programados) */
+.btn-live-trigger {
+  background-color: #0284c7; /* Celeste Deportivo Premium */
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-live-trigger:hover {
+  background-color: #0369a1; /* Celeste más oscuro al pasar el mouse */
+}
+

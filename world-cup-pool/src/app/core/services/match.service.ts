@@ -31,4 +31,7 @@ export class MatchService {
       awayScore
     });
   }
+  toggleForceOpenMatch(matchId: number): Observable<any> {
+    return this.api.post(`admin/matches/${matchId}/toggle-open`, {});
+  }
 }

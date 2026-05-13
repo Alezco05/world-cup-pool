@@ -31,6 +31,17 @@
                 <td class="username">{{ entry.username }}</td>
                 <td class="points">{{ entry.totalPoints }} pts</td>
               </tr>
+            } @empty {
+              <!-- Mensaje centrado en caso de reinicio de base de datos -->
+              <tr>
+                <td colspan="3" class="leaderboard-empty-state">
+                  <div class="empty-content">
+                    <span class="empty-icon">🏃‍♂️⚽</span>
+                    <h3>Sin jugadores registrados</h3>
+                    <p>El ranking global se actualizará en cuanto los participantes guarden sus primeros pronósticos.</p>
+                  </div>
+                </td>
+              </tr>
             }
           </tbody>
         </table>

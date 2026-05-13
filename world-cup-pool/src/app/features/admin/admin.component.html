@@ -24,8 +24,13 @@
               </div>
             </div>
 
-            <div class="match-status" [class]="match.status === 'Finished' ? 'finished' : 'scheduled'">
-              {{ match.status === 'Finished' ? 'Finalizado' : 'Programado' }}
+            <!-- Soporte unificado de clases CSS para los 3 estados del Enum -->
+            <div class="match-status" 
+                 [class.scheduled]="match.status === 0 || match.status === 'Scheduled'"
+                 [class.live]="match.status === 1 || match.status === 'Live'"
+                 [class.finished]="match.status === 2 || match.status === 'Finished'">
+              {{ (match.status === 0 || match.status === 'Scheduled') ? 'Programado' : 
+                 (match.status === 1 || match.status === 'Live') ? 'En Curso' : 'Finalizado' }}
             </div>
 
             @if (editingMatchId() === match.id) {
@@ -57,13 +62,26 @@
             } @else {
               <div class="score-display">
                 <span class="score">{{ getScoreDisplay(match) }}</span>
-                <button 
-                  (click)="startEditing(match.id)"
-                  [disabled]="match.status === 'Finished'"
-                  class="btn-edit"
-                >
-                  Editar
-                </button>
+                
+                <div class="admin-buttons-row">
+                  <button 
+                    (click)="startEditing(match.id)"
+                    class="btn-edit"
+                  >
+                    Editar
+                  </button>
+
+                  <!-- Botón condicional de simulación para pruebas en vivo -->
+                  @if (match.status === 2 || match.status === 'Finished') {
+                    <button (click)="onForceOpen(match.id)" class="btn-reopen">
+                      🔄 Reiniciar
+                    </button>
+                  } @else if (match.status === 0 || match.status === 'Scheduled') {
+                    <button (click)="onForceOpen(match.id)" class="btn-live-trigger">
+                      ⏱️ Iniciar
+                    </button>
+                  }
+                </div>
               </div>
             }
           </div>
@@ -88,8 +106,13 @@
               </div>
             </div>
 
-            <div class="match-status" [class]="match.status === 'Finished' ? 'finished' : 'scheduled'">
-              {{ match.status === 'Finished' ? 'Finalizado' : 'Programado' }}
+            <!-- Soporte unificado de clases CSS para los 3 estados del Enum -->
+            <div class="match-status" 
+                 [class.scheduled]="match.status === 0 || match.status === 'Scheduled'"
+                 [class.live]="match.status === 1 || match.status === 'Live'"
+                 [class.finished]="match.status === 2 || match.status === 'Finished'">
+              {{ (match.status === 0 || match.status === 'Scheduled') ? 'Programado' : 
+                 (match.status === 1 || match.status === 'Live') ? 'En Curso' : 'Finalizado' }}
             </div>
 
             @if (editingMatchId() === match.id) {
@@ -121,13 +144,26 @@
             } @else {
               <div class="score-display">
                 <span class="score">{{ getScoreDisplay(match) }}</span>
-                <button 
-                  (click)="startEditing(match.id)"
-                  [disabled]="match.status === 'Finished'"
-                  class="btn-edit"
-                >
-                  Editar
-                </button>
+                
+                <div class="admin-buttons-row">
+                  <button 
+                    (click)="startEditing(match.id)"
+                    class="btn-edit"
+                  >
+                    Editar
+                  </button>
+
+                  <!-- Botón condicional de simulación para pruebas en vivo -->
+                  @if (match.status === 2 || match.status === 'Finished') {
+                    <button (click)="onForceOpen(match.id)" class="btn-reopen">
+                      🔄 Reiniciar
+                    </button>
+                  } @else if (match.status === 0 || match.status === 'Scheduled') {
+                    <button (click)="onForceOpen(match.id)" class="btn-live-trigger">
+                      ⏱️ Iniciar
+                    </button>
+                  }
+                </div>
               </div>
             }
           </div>

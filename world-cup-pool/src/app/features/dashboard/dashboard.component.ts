@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
   }
 
   isMatchOpen(match: Match): boolean {
-    return match.status === 'Scheduled';
+    return match.status === 0 || match.status === 'Scheduled';
   }
 
   formatDate(dateString: string): string {

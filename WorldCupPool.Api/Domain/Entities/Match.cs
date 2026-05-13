@@ -7,6 +7,7 @@ namespace WorldCupPool.Api.Domain
     public enum MatchStatus
     {
         Scheduled,
+        Live,
         Finished
     }
 

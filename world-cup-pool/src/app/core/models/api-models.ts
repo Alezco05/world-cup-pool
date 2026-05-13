@@ -30,13 +30,15 @@ export interface Match {
   homeTeam: string;
   awayTeam: string;
   group: string;
-  matchDate: string; // ISO 8601 date string
+  matchDate: string;
   homeScore: number | null;
   awayScore: number | null;
-  status: 'Scheduled' | 'Finished';
+  status: number | string;
   homeFlag?: string;
   awayFlag?: string;
+  predictions?: any[];
 }
+
 
 // ============================================
 // PREDICTION MODELS

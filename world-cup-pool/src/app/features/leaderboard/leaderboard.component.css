@@ -1,43 +1,66 @@
+/* ==========================================================================
+   COMPONENTE LEADERBOARD - DISEÑO TOTALMENTE CENTRADO Y RESPONSIVO
+   ========================================================================== */
+
 .leaderboard-container {
-  max-width: 1200px;
+  width: 90%;
+  max-width: 800px; /* Ancho ideal para que la tabla se vea compacta y centrada */
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 40px 0;
+  box-sizing: border-box;
+  transition: max-width 0.3s ease;
 }
 
 h1 {
   font-size: 2rem;
   font-weight: 800;
-  color: #0f172a;                 /* Slate oscuro, nunca negro puro */
-  margin-bottom: 24px;
+  color: #0f172a;
+  text-align: center; /* Título perfectamente centrado */
+  margin-bottom: 32px;
   letter-spacing: -0.5px;
   position: relative;
-  display: inline-block;
+  display: block;
 }
 
-/* Línea decorativa inferior sutil bajo el título */
 h1::after {
   content: '';
   position: absolute;
-  bottom: -6px;
-  left: 0;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%); /* Centrado sutil de la barra decorativa */
   width: 60px;
   height: 4px;
   background-color: var(--color-primary);
   border-radius: 2px;
 }
 
-.leaderboard-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  align-items: start;
-  margin-top: 16px;
+/* Alertas de error y estados de carga */
+.error-message {
+  background-color: #fef2f2;
+  color: var(--color-danger-hover);
+  border: 1px solid #fecaca;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
-@media (min-width: 992px) {
-  .leaderboard-wrapper {
-    grid-template-columns: 2fr 1fr;
-  }
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Layout Centrado por defecto */
+.leaderboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  margin-top: 16px;
 }
 
 .leaderboard-table-container {
@@ -46,8 +69,12 @@ h1::after {
   border: 1px solid #e2e8f0;
   box-shadow: var(--shadow-md);
   overflow: hidden;
+  width: 100%;
 }
 
+/* ==========================================================================
+   ESTILOS DE LA TABLA PRINCIPAL
+   ========================================================================== */
 .leaderboard-table {
   width: 100%;
   border-collapse: collapse;
@@ -55,16 +82,15 @@ h1::after {
   font-size: 0.95rem;
 }
 
-/* Cabecera Azul Claro Deportiva */
 .leaderboard-table thead {
-  background-color: #f1f5f9;      /* Fondo gris azulado muy suave */
+  background-color: #f1f5f9;
   border-bottom: 2px solid #e2e8f0;
 }
 
 .leaderboard-table th {
   padding: 18px 20px;
   font-weight: 700;
-  color: #334155;                 /* Texto legible contrastado */
+  color: #334155;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.5px;
@@ -77,14 +103,14 @@ h1::after {
 
 .leaderboard-row {
   cursor: pointer;
-  transition: all 0.15s ease-on-out;
+  transition: all 0.15s ease-in-out;
 }
 
 .leaderboard-row:hover {
   background-color: #f8fafc;
 }
 
-/* Fila activa azul pastel */
+/* Fila activa color azul pastel */
 .leaderboard-row.selected {
   background-color: var(--color-primary-light);
 }
@@ -95,7 +121,7 @@ h1::after {
 
 .position {
   width: 80px;
-  text-center: center;
+  text-align: center;
   font-weight: 700;
   color: var(--text-muted);
 }
@@ -109,34 +135,58 @@ h1::after {
   width: 120px;
   text-align: right;
   font-weight: 800;
-  color: #2563eb;                 /* Azul intenso para los puntos */
+  color: #2563eb;
 }
 
-/* Alertas y pantallas de carga */
-.error-message {
-  background-color: #fef2f2;
-  color: var(--color-danger-hover);
-  border: 1px solid #ffeeef;
-  padding: 16px;
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  margin-bottom: 24px;
-}
-
-.loading {
+/* ==========================================================================
+   ESTILOS PARA EL ESTADO VACÍO (EMPTY STATE)
+   ========================================================================== */
+.leaderboard-empty-state {
+  padding: 60px 24px !important;
   text-align: center;
-  padding: 40px;
-  color: var(--text-muted);
-  font-weight: 500;
+  background-color: var(--bg-card);
 }
 
-/* Historial Lateral */
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.empty-content h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.empty-content p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   SECCIÓN DE HISTORIAL DE PREDICCIONES
+   ========================================================================== */
 .history-section {
   background-color: var(--bg-card);
   border-radius: var(--radius-lg);
   border: 1px solid #e2e8f0;
   box-shadow: var(--shadow-md);
   padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .history-header {
@@ -180,22 +230,82 @@ h1::after {
   color: var(--text-muted);
 }
 
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
+/* ==========================================================================
+   COMPORTAMIENTO EXCLUSIVO PARA SMARTPHONES (TABLA DE HISTORIAL)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .history-table, 
+  .history-table thead, 
+  .history-table tbody, 
+  .history-table th, 
+  .history-table td, 
+  .history-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .history-table thead {
+    display: none;
+  }
+
+  .history-table tr {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+  }
+
+  .history-table td {
+    border: none;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+
+  .history-table td:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .history-table td:nth-of-type(1) {
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+  }
+  
+  /* Textos explicativos en las mini-tarjetas móviles */
+  .history-table td:nth-of-type(2)::before { content: "Tu Pronóstico:"; font-weight: 700; color: #64748b; }
+  .history-table td:nth-of-type(3)::before { content: "Resultado Real:"; font-weight: 700; color: #64748b; }
+  .history-table td:nth-of-type(4)::before { content: "Puntos:"; font-weight: 700; color: #64748b; }
+  .history-table td:nth-of-type(5)::before { content: "Estado:"; font-weight: 700; color: #64748b; }
 }
 
-.history-table th {
-  padding: 12px;
-  background-color: #f8fafc;
-  color: #475569;
-  font-weight: 700;
-  font-size: 0.75rem;
-}
+/* TABLETS Y MONITORES (HISTORIAL EN FORMATO TABLA ESTÁNDAR) */
+@media (min-width: 768px) {
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
-.history-table td {
-  padding: 14px 12px;
-  border-bottom: 1px solid #f1f5f9;
+  .history-table th {
+    padding: 12px;
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .history-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f1f5f9;
+  }
 }
 
 .points-earned {
@@ -219,4 +329,30 @@ h1::after {
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   REGLA DE ESCRITORIO AVANZADA: SOLO ENCOGE LA TABLA SI SE ABRE EL HISTORIAL
+   ========================================================================== */
+@media (min-width: 992px) {
+  /* Si el contenedor contiene la caja de historial, cambia automáticamente a dos columnas */
+  .leaderboard-container:has(.history-section) {
+    max-width: 1200px;
+  }
+
+  .leaderboard-container:has(.history-section) .leaderboard-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  
+  .leaderboard-container:has(.history-section) h1 {
+    text-align: left;
+  }
+
+  .leaderboard-container:has(.history-section) h1::after {
+    left: 0;
+    transform: none;
+  }
 }
