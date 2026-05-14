@@ -77,11 +77,30 @@ export class LeaderboardComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    const date = new Date(dateString);
+    console.log('Original date string:', dateString);
+  if (!dateString) return 'Por definir';
+
+  try {
+    // Expresión regular que remueve limpiamente los microsegundos excesivos manteniendo la 'Z' o el offset
+    const isoCleaned = dateString.replace(/\.\d+/, '');
+    const date = new Date(isoCleaned);
+
+    // Validación de seguridad para confirmar que el objeto Date es válido
+    if (isNaN(date.getTime())) {
+      return 'Por definir';
+    }
+
+    // Formato estético: "13 de may a las 20:20"
     return date.toLocaleDateString('es-ES', {
-      year: 'numeric',
+      day: 'numeric',
       month: 'short',
-      day: 'numeric'
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
     });
+  } catch (e) {
+    return 'Por definir';
   }
+}
+
 }

@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './features/auth/login/login.component';
-import { RegisterComponent } from './features/auth/register/register.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { LeaderboardComponent } from './features/leaderboard/leaderboard.component';
-import { AdminComponent } from './features/admin/admin.component';
 import { authGuard } from './core/guards/auth.guard';
 import { adminGuard } from './core/guards/admin.guard';
 
@@ -13,11 +8,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        component: LoginComponent
+        // 🚀 Carga perezosa del componente de Login
+        loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)
       },
       {
         path: 'register',
-        component: RegisterComponent
+        // 🚀 Carga perezosa del componente de Registro
+        loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent)
       },
       {
         path: '',
@@ -28,17 +25,18 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard]
   },
   {
     path: 'leaderboard',
-    component: LeaderboardComponent,
+    // 🚀 Carga perezosa del Ranking Global
+    loadComponent: () => import('./features/leaderboard/leaderboard.component').then(m => m.LeaderboardComponent),
     canActivate: [authGuard]
   },
   {
     path: 'admin',
-    component: AdminComponent,
+      loadComponent: () => import('./features/admin/admin.component').then(m => m.AdminComponent),
     canActivate: [adminGuard]
   },
   {

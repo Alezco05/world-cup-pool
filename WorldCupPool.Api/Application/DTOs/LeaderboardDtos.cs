@@ -20,5 +20,7 @@ namespace WorldCupPool.Api.Application.DTOs
         public int? PointsEarned { get; set; }
         public string Status { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
+
+        public DateTime MatchDate { get; set; }
     }
 }

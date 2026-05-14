@@ -39,27 +39,29 @@ namespace WorldCupPool.Api.Application.Services
         /// Ordenado por fecha descendente.
         /// </summary>
         public async Task<IEnumerable<UserPredictionHistoryEntryDto>> GetUserHistoryAsync(int userId)
+{
+    return await _context.Predictions
+        .AsNoTracking()
+        .Where(p => p.UserId == userId)
+        .Include(p => p.Match)
+        .OrderByDescending(p => p.CreatedAt)
+        .Select(p => new UserPredictionHistoryEntryDto
         {
-            return await _context.Predictions
-                .AsNoTracking()
-                .Where(p => p.UserId == userId)
-                .Include(p => p.Match)
-                .OrderByDescending(p => p.CreatedAt)
-                .Select(p => new UserPredictionHistoryEntryDto
-                {
-                    PredictionId = p.Id,
-                    MatchId = p.MatchId,
-                    HomeTeam = p.Match.HomeTeam,
-                    AwayTeam = p.Match.AwayTeam,
-                    PredictedHomeScore = p.PredictedHomeScore,
-                    PredictedAwayScore = p.PredictedAwayScore,
-                    HomeScore = p.Match.HomeScore,
-                    AwayScore = p.Match.AwayScore,
-                    PointsEarned = p.PointsEarned,
-                    Status = p.Match.Status.ToString(),
-                    CreatedAt = p.CreatedAt
-                })
-                .ToListAsync();
-        }
+            PredictionId = p.Id,
+            MatchId = p.MatchId,
+            HomeTeam = p.Match.HomeTeam,
+            AwayTeam = p.Match.AwayTeam,
+            MatchDate = p.Match.MatchDate, 
+            PredictedHomeScore = p.PredictedHomeScore,
+            PredictedAwayScore = p.PredictedAwayScore,
+            HomeScore = p.Match.HomeScore,
+            AwayScore = p.Match.AwayScore,
+            PointsEarned = p.PointsEarned,
+            Status = p.Match.Status.ToString(),
+            CreatedAt = p.CreatedAt
+        })
+        .ToListAsync();
+}
+
     }
 }
