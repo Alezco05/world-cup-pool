@@ -80,8 +80,10 @@ export class DashboardComponent implements OnInit {
   }
 
   isMatchOpen(match: Match): boolean {
-    return match.status === 0 || match.status === 'Scheduled';
-  }
+  // 0 = Scheduled, 1 = Live. Ambos permitirían apostar.
+  return match.status === 0 || match.status === 1 || match.status === 'Scheduled';
+}
+
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
